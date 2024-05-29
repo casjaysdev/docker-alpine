@@ -1,7 +1,7 @@
 ## 👋 Welcome to alpine 🚀  
 
 alpine README  
-  
+Base image of AlpineLinux  
   
 ## Install my system scripts  
 
@@ -25,13 +25,10 @@ cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/alpine/rootfs/." "$HOME/.local
 docker run -d \
 --restart always \
 --privileged \
---name casjaysdevdocker-alpine \
+--name casjaysdev-alpine \
 --hostname alpine \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-alpine/rootfs/data:/data:z" \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-alpine/rootfs/config:/config:z" \
--p 80:80 \
-casjaysdevdocker/alpine:latest
+casjaysdev/alpine:latest
 ```
   
 ## via docker-compose  
@@ -40,39 +37,34 @@ casjaysdevdocker/alpine:latest
 version: "2"
 services:
   ProjectName:
-    image: casjaysdevdocker/alpine
-    container_name: casjaysdevdocker-alpine
+    image: casjaysdev/alpine
+    container_name: casjaysdev-alpine
     environment:
       - TZ=America/New_York
       - HOSTNAME=alpine
-    volumes:
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-alpine/rootfs/data:/data:z"
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-alpine/rootfs/config:/config:z"
-    ports:
-      - 80:80
     restart: always
 ```
   
 ## Get source files  
   
 ```shell
-dockermgr download src casjaysdevdocker/alpine
+dockermgr download src casjaysdev/alpine
 ```
   
 OR
   
 ```shell
-git clone "https://github.com/casjaysdevdocker/alpine" "$HOME/Projects/github/casjaysdevdocker/alpine"
+git clone "https://github.com/casjaysdev/alpine" "$HOME/Projects/github/casjaysdev/alpine"
 ```
   
 ## Build container  
   
 ```shell
-cd "$HOME/Projects/github/casjaysdevdocker/alpine"
+cd "$HOME/Projects/github/casjaysdev/alpine"
 buildx 
 ```
   
 ## Authors  
   
 🤖 casjay: [Github](https://github.com/casjay) 🤖  
-⛵ casjaysdevdocker: [Github](https://github.com/casjaysdevdocker) [Docker](https://hub.docker.com/u/casjaysdevdocker) ⛵  
+⛵ casjaysdev: [Github](https://github.com/casjaysdev) [Docker](https://hub.docker.com/u/casjaysdev) ⛵  
