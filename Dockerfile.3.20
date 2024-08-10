@@ -72,6 +72,7 @@ RUN set -e; \
   apk --no-cache add bash
 
 ENV SHELL="/bin/bash"
+SHELL [ "/bin/bash", "-c" ]
 
 COPY ./rootfs/usr/local/bin/pkmgr /usr/local/bin/pkmgr
 COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
