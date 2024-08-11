@@ -2,7 +2,7 @@
 # Docker image for alpine using the alpine template
 ARG IMAGE_NAME="alpine"
 ARG PHP_SERVER="alpine"
-ARG BUILD_DATE="202408111005"
+ARG BUILD_DATE="202408111050"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TIMEZONE="America/New_York"
 ARG WWW_ROOT_DIR="/usr/share/httpd/default"
@@ -53,8 +53,7 @@ ARG PHP_VERSION
 ARG PHP_SERVER
 ARG SHELL_OPTS
 
-ARG PACK_LIST="bash-completion git curl wget sudo unzip iproute2 ssmtp openssl jq tzdata mailcap ncurses util-linux pciutils usbutils coreutils binutils \
-  findutils grep rsync zip tini py3-pip procps net-tools coreutils sed gawk grep attr findutils readline lsof less curl shadow certbot ca-certificates "
+ARG PACK_LIST="bash-completion git curl wget sudo unzip iproute2 ssmtp openssl jq tzdata mailcap ncurses util-linux pciutils usbutils coreutils binutils findutils grep rsync zip tini py3-pip procps net-tools coreutils sed gawk grep attr findutils readline lsof less curl shadow certbot ca-certificates "
 
 ENV ENV=~/.profile
 ENV SHELL="/bin/sh"
@@ -72,8 +71,8 @@ COPY ./rootfs/usr/local/bin/. /usr/local/bin/
 RUN set -e; \
   echo "Setting up prerequisites"; \
   apk --no-cache add bash; \
-  SH_CMD="$(which sh 2>/dev/null)"; \
-  BASH_CMD="$(which bash 2>/dev/null)"; \
+  SH_CMD="$(which sh 2>/dev/null||command -v sh 2>/dev/null)"; \
+  BASH_CMD="$(which bash 2>/dev/null||command -v bash 2>/dev/null)"; \
   [ -x "$BASH_CMD" ] && symlink "$BASH_CMD" "/bin/sh" || true; \
   [ -x "$BASH_CMD" ] && symlink "$BASH_CMD" "/usr/bin/sh" || true; \
   [ -x "$BASH_CMD" ] && [ "$SH_CMD" != "/bin/sh"] && symlink "$BASH_CMD" "$SH_CMD" || true; \
@@ -142,7 +141,7 @@ RUN echo "Updating system files "; \
 
 RUN echo "Custom Settings"; \
   $SHELL_OPTS; \
-  echo ""
+echo ""
 
 RUN echo "Setting up users and scripts "; \
   $SHELL_OPTS; \
@@ -159,7 +158,7 @@ RUN echo "Setting OS Settings "; \
 
 RUN echo "Custom Applications"; \
   $SHELL_OPTS; \
-  echo ""
+echo ""
 
 RUN echo "Running custom commands"; \
   if [ -f "/root/docker/setup/05-custom.sh" ];then echo "Running the custom script";/root/docker/setup/05-custom.sh||{ echo "Failed to execute /root/docker/setup/05-custom" && exit 10; };echo "Done running the custom script";fi; \
