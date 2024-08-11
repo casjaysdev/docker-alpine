@@ -84,6 +84,7 @@ COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
 
 RUN echo "Initializing the system"; \
   $SHELL_OPTS; \
+  mkdir -p "${DEFAULT_DATA_DIR}" "${DEFAULT_CONF_DIR}" "${DEFAULT_TEMPLATE_DIR}" "/root/docker/setup" "/etc/profile.d"; \
   if [ -f "/root/docker/setup/00-init.sh" ];then echo "Running the init script";bash "/root/docker/setup/00-init.sh";echo "Done running the init script";fi; \
   echo ""
 
