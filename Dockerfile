@@ -99,6 +99,9 @@ LABEL org.opencontainers.image.base.name="${IMAGE_NAME}"
 LABEL org.opencontainers.image.description="Containerized version of ${IMAGE_NAME}"
 LABEL org.opencontainers.image.build-date="${BUILD_DATE}"
 LABEL org.opencontainers.image.authors="CasjaysDev <docker-admin@casjaysdev.pro>"
+LABEL org.opencontainers.image.url="https://hub.docker.com/r/casjaysdev/alpine"
+LABEL org.opencontainers.image.source="https://github.com/dockersrc/alpine"
+LABEL org.opencontainers.image.documentation="https://github.com/dockersrc/alpine"
 
 COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
 COPY --from=build / /
